@@ -97,7 +97,14 @@
             }
         }
                   
-        
+        // score: 
+        let score = 0;
+
+        function drawScore() {
+            ctx.font = "15px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText(`Score: ${score}`, 8, 20)
+        }
 
         function draw() {
             // clear the canvas
@@ -107,6 +114,7 @@
             drawBall();
             drawPaddle();
             drawBricks();
+            drawScore();
             collisionDetection();
 
             // move the ball
@@ -176,6 +184,12 @@
                   ) {
                     dy = -dy;
                     b.status = 0;
+                    score++;
+                    if (score === brickRowCount * brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!");
+                        document.location.reload();
+                        clearInterval(interval);
+                    }
                   }
                 }
               }

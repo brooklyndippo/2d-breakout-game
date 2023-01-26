@@ -22,7 +22,7 @@
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
 
-        // ball specs:
+        // === ball specs: ===================================
         // starting positions
         let x = canvas.width / 2;
         let y = canvas.height - 30;
@@ -43,7 +43,7 @@
             ctx.closePath(); 
         }
 
-        // paddle specs:
+        // === paddle specs: =================================
         const paddleHeight = 10;
         const paddleWidth = 75;
         let paddleX = (canvas.width - paddleWidth) / 2;
@@ -61,7 +61,7 @@
             ctx.closePath();
         }
         
-        // brick specs:
+        // === brick specs: ==================================
         const brickRowCount = 3;
         const brickColumnCount = 5;
         const brickWidth = 75;
@@ -97,7 +97,7 @@
             }
         }
                   
-        // score: 
+        // === score: =====================================
         let score = 0;
 
         function drawScore() {
@@ -106,15 +106,28 @@
             ctx.fillText(`Score: ${score}`, 8, 20)
         }
 
+        // === lives: =====================================
+        let lives = 3;
+
+        function drawLives() {
+            ctx.font = "15px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText(`Lives: ${lives}`, canvas.width - 60, 20)
+        }
+
+
+        // === draw the game: =============================
+
         function draw() {
             // clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // draw game elements
+            drawScore();
+            drawLives();
             drawBall();
             drawPaddle();
             drawBricks();
-            drawScore();
             collisionDetection();
 
             // move the ball
@@ -133,9 +146,17 @@
                 if (x > paddleX && x < paddleX + paddleWidth) {
                     dy = -dy;
                 } else {
-                alert("GAME OVER");
-                document.location.reload();
-                clearInterval(interval);
+                    lives--;
+                    if (!lives) {
+                        alert("GAME OVER");
+                        document.location.reload();
+                    } else {
+                        x = canvas.width / 2;
+                        y = canvas.height - 30;
+                        dx = 2;
+                        dy = -2;
+                        paddleX = (canvas.width - paddleWidth) / 2;
+                    }
                 }
             };
 

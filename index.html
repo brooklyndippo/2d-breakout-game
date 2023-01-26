@@ -166,7 +166,9 @@
             } else if (leftPressed) {
                 paddleX = Math.max(paddleX - 7, 0);
             }
-              
+            
+            // call draw function again
+            requestAnimationFrame(draw);
         }
 
         // add event listeners for keyboard presses
@@ -220,7 +222,6 @@
                     if (score === brickRowCount * brickColumnCount) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
-                        clearInterval(interval);
                     }
                   }
                 }
@@ -228,8 +229,7 @@
             }
         }
                    
-          
-        const interval = setInterval(draw, 10);
+        draw();
     </script>
   </body>
 </html>

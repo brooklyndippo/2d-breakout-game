@@ -115,12 +115,30 @@
             ctx.fillText(`Lives: ${lives}`, canvas.width - 60, 20)
         }
 
+        // === stretch challenge: gradient background =====
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+
+            gradient.addColorStop(0, "mediumturquoise");
+            gradient.addColorStop(0.2, "powderblue");
+            gradient.addColorStop(1, "papayawhip");
+
+            ctx.beginPath();
+            ctx.rect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.closePath();
+        };
+
+
 
         // === draw the game: =============================
 
         function draw() {
             // clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawBackground();
 
             // draw game elements
             drawScore();

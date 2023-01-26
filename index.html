@@ -160,6 +160,17 @@
               leftPressed = true;
             }
         };
+
+        // add event listener for mouse movement
+        document.addEventListener("mousemove", mouseMoveHandler, false);
+
+        // move the paddle relative to the mouse position
+        function mouseMoveHandler(e) {
+            const relativeX = e.clientX - canvas.offsetLeft;
+            if (relativeX > 0 && relativeX < canvas.width) {
+              paddleX = relativeX - paddleWidth / 2;
+            }
+        }          
         
         // reset paddle directions to false when key is let off
         function keyUpHandler(e) {

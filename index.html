@@ -59,20 +59,58 @@
             ctx.fillStyle = "#0095DD";
             ctx.fill();
             ctx.closePath();
-        }          
+        }
+        
+        // brick specs:
+        const brickRowCount = 3;
+        const brickColumnCount = 5;
+        const brickWidth = 75;
+        const brickHeight = 20;
+        const brickPadding = 10;
+        const brickOffsetTop = 30;
+        const brickOffsetLeft = 30;
+
+        // brick array:
+        const bricks = [];
+        for (let c = 0; c < brickColumnCount; c++) {
+          bricks[c] = [];
+          for (let r = 0; r < brickRowCount; r++) {
+            bricks[c][r] = { x: 0, y: 0 };
+          }
+        }
+
+        function drawBricks() {
+            for (let c = 0; c < brickColumnCount; c++) {
+              for (let r = 0; r < brickRowCount; r++) {
+                const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+              }
+            }
+        }
+                  
+        
 
         function draw() {
             // clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // create the ball
+            // draw game elements
             drawBall();
+            drawPaddle();
+            drawBricks();
 
             // move the ball
             x += dx;
             y += dy;
 
-            // adjust movement direction if hitting the canvas edge
+            // movement redirection on collision with canvas edge
             if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
                 dx = -dx;
             };
@@ -80,6 +118,7 @@
             if (y + dy < ballRadius) {
                 dy = -dy;
             } else if (y + dy > canvas.height - ballRadius) {
+                // collision detection between paddle and ball  
                 if (x > paddleX && x < paddleX + paddleWidth) {
                     dy = -dy;
                 } else {
@@ -89,8 +128,7 @@
                 }
             };
 
-            drawPaddle();
-            
+            // commands to move the paddle         
             if (rightPressed) {
                 paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
             } else if (leftPressed) {

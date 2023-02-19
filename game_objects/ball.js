@@ -26,11 +26,8 @@ export default class Ball {
       this.dx = -this.dx;
     }
 
-    // movement redirection on collision vertical canvas edge
+    // movement redirection on collision top canvas edge
     if (this.y + this.dy < this.radius) {
-      this.dy = -this.dy;
-    } else if (this.y + this.dy > 320 - this.radius) {
-      // TO DO: add logic for collision with paddle
       this.dy = -this.dy;
     }
   }

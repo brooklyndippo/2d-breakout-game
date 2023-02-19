@@ -2,6 +2,7 @@ import Ball from './game_objects/ball.js';
 import Brick from "./game_objects/brick.js";
 import GradientBackground from './game_objects/background.js';
 import Paddle from './game_objects/paddle.js';
+import Score from './game_objects/score.js';
 
 // import Brick from "./game_objects/brick";
 
@@ -103,6 +104,7 @@ initializeBricks();
 // }
 
 // === score: =====================================
+let scoreboard = new Score(8, 20);
 let score = 0;
 
 function drawScore() {
@@ -133,11 +135,11 @@ function draw() {
 
   background.paintBackground(ctx);
 
-  // draw ball
+  // draw BALL
   ball.render(ctx);
   ball.move();
 
-  // draw bricks
+  // draw BRICKS
   for (let c = 0; c < brickColumnCount; c += 1) {
     for (let r = 0; r < brickRowCount; r += 1) {
       if (bricks[c][r].status === true) {
@@ -146,14 +148,15 @@ function draw() {
     }
   }
 
-  // draw paddle
+  // draw PADDLE
   paddle.render(ctx);
 
-  // draw game elements
-  drawScore();
+  // draw SCORE
+  scoreboard.render(ctx);
+
   drawLives();
   // drawBall();
-  //drawPaddle();
+  // drawPaddle();
   // drawBricks();
   // collisionDetection();
 

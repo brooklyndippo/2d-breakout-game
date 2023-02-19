@@ -1,8 +1,9 @@
 import Ball from './game_objects/ball.js';
 import Brick from "./game_objects/brick.js";
 import GradientBackground from './game_objects/background.js';
+import LifeTracker from './game_objects/lifetracker.js';
 import Paddle from './game_objects/paddle.js';
-import Score from './game_objects/score.js';
+import Scoreboard from './game_objects/scoreboard.js';
 
 // import Brick from "./game_objects/brick";
 
@@ -104,16 +105,17 @@ initializeBricks();
 // }
 
 // === score: =====================================
-let scoreboard = new Score(8, 20);
+const scoreboard = new Scoreboard(8, 20);
 let score = 0;
 
-function drawScore() {
-  ctx.font = '15px Arial';
-  ctx.fillStyle = 'black';
-  ctx.fillText(`Score: ${score}`, 8, 20);
-}
+// function drawScore() {
+//   ctx.font = '15px Arial';
+//   ctx.fillStyle = 'black';
+//   ctx.fillText(`Score: ${score}`, 8, 20);
+// }
 
 // === lives: =====================================
+const lifetracker = new LifeTracker(canvas.width - 60, 20);
 let lives = 3;
 
 function drawLives() {
@@ -154,7 +156,10 @@ function draw() {
   // draw SCORE
   scoreboard.render(ctx);
 
-  drawLives();
+  // draw LIVES
+  lifetracker.render(ctx);
+
+  // drawLives();
   // drawBall();
   // drawPaddle();
   // drawBricks();

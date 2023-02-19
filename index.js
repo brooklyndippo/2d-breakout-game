@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 import Ball from './game_objects/ball.js';
-import Brick from "./game_objects/brick.js";
+import Brick from './game_objects/brick.js';
 import GradientBackground from './game_objects/background.js';
 import LifeTracker from './game_objects/lifetracker.js';
 import Paddle from './game_objects/paddle.js';
@@ -21,26 +22,26 @@ let y = canvas.height - 30;
 
 // radius
 const ballRadius = 10;
-const Pi2 = Math.PI * 2;
+// const Pi2 = Math.PI * 2;
 
 // movement intervals
 let dx = 2;
 let dy = -2;
 
-function drawBall() {
-  ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Pi2);
-  ctx.fillStyle = 'coral';
-  ctx.fill();
-  ctx.closePath();
-}
+// function drawBall() {
+//   ctx.beginPath();
+//   ctx.arc(x, y, ballRadius, 0, Pi2);
+//   ctx.fillStyle = 'coral';
+//   ctx.fill();
+//   ctx.closePath();
+// }
 
 // === paddle specs: =================================
 const paddleWidth = 75;
 const paddleHeight = 10;
 const paddleStartX = (canvas.width - paddleWidth) / 2;
 const paddleStartY = canvas.height - paddleHeight;
-const paddle = new Paddle(paddleStartX, paddleStartY, paddleWidth, paddleHeight, '#006666');
+const paddle = new Paddle(paddleStartX, paddleStartY, '#006666', paddleWidth, paddleHeight);
 
 let paddleX = paddleStartX;
 
@@ -75,9 +76,9 @@ function initializeBricks() {
       const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
       const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
       if ((r + c) % 2) {
-        bricks[c][r] = new Brick(brickX, brickY, brickWidth, brickHeight, '#006666');
+        bricks[c][r] = new Brick(brickX, brickY, '#006666', brickWidth, brickHeight);
       } else {
-        bricks[c][r] = new Brick(brickX, brickY, brickWidth, brickHeight, 'cadetblue');
+        bricks[c][r] = new Brick(brickX, brickY, 'cadetblue', brickWidth, brickHeight);
       }
     }
   }

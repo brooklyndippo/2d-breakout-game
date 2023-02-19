@@ -2,8 +2,8 @@
 import Sprite from './sprite.js';
 
 class Paddle extends Sprite {
-  constructor(x, y, width = 75, height = 10, color) {
-    super(x, y, width, height, color); // pass arguments to Sprite!
+  constructor(x, y, color, width = 75, height = 10) {
+    super(x, y, color, width, height); // pass arguments to Sprite!
   }
 }
 

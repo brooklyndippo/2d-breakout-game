@@ -18,6 +18,6 @@ export default class Scoreboard {
   }
 
   reset() {
-    this.score = this.score;
+    this.score = 0;
   }
 }

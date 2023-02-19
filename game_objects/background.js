@@ -19,4 +19,3 @@ export default class GradientBackground {
     ctx.closePath();
   }
 }
-

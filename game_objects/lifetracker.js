@@ -1,4 +1,4 @@
-export default class Lives {
+export default class LifeTracker {
   constructor(x, y, font = 'Arial', color = 'black', lives = 3) {
     this.x = x;
     this.y = y;
@@ -18,6 +18,6 @@ export default class Lives {
   }
 
   reset() {
-    this.lives = this.lives;
+    this.lives = 3;
   }
 }

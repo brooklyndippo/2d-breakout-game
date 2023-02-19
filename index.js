@@ -1,5 +1,7 @@
 import Ball from './game_objects/ball.js';
 import Brick from "./game_objects/brick.js";
+import GradientBackground from './game_objects/background.js';
+import Paddle from './game_objects/paddle.js';
 
 // import Brick from "./game_objects/brick";
 
@@ -117,19 +119,7 @@ function drawLives() {
 }
 
 // === stretch challenge: gradient background =====
-function drawBackground() {
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-
-  gradient.addColorStop(0, 'mediumturquoise');
-  gradient.addColorStop(0.2, 'powderblue');
-  gradient.addColorStop(1, 'papayawhip');
-
-  ctx.beginPath();
-  ctx.rect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = gradient;
-  ctx.fill();
-  ctx.closePath();
-}
+const background = new GradientBackground('mediumturquoise', 'powderblue', 'papayawhip', canvas.height, canvas.width);
 
 // === reset game objects ==========================
 
@@ -139,7 +129,7 @@ function draw() {
 // clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  drawBackground();
+  background.paintBackground(ctx);
 
   // draw ball
   ball.render(ctx);

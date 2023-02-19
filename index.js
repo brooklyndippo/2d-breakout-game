@@ -34,9 +34,11 @@ function drawBall() {
 }
 
 // === paddle specs: =================================
-const paddleHeight = 10;
 const paddleWidth = 75;
+const paddleHeight = 10;
 const paddleStartX = (canvas.width - paddleWidth) / 2;
+const paddleStartY = canvas.height - paddleHeight;
+const paddle = new Paddle(paddleStartX, paddleStartY, paddleWidth, paddleHeight, '#006666');
 
 let paddleX = paddleStartX;
 
@@ -44,13 +46,13 @@ let paddleX = paddleStartX;
 let rightPressed = false;
 let leftPressed = false;
 
-function drawPaddle() {
-  ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = '#006666';
-  ctx.fill();
-  ctx.closePath();
-}
+// function drawPaddle() {
+//   ctx.beginPath();
+//   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+//   ctx.fillStyle = '#006666';
+//   ctx.fill();
+//   ctx.closePath();
+// }
 
 // === brick specs: ==================================
 const brickRowCount = 3;
@@ -144,22 +146,25 @@ function draw() {
     }
   }
 
+  // draw paddle
+  paddle.render(ctx);
+
   // draw game elements
   drawScore();
   drawLives();
   // drawBall();
-  drawPaddle();
+  //drawPaddle();
   // drawBricks();
   // collisionDetection();
 
-  // move the ball
-  x += dx;
-  y += dy;
+  // // move the ball
+  // x += dx;
+  // y += dy;
 
-  // movement redirection on collision with canvas edge
-  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-    dx = -dx;
-  }
+  // // movement redirection on collision with canvas edge
+  // if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+  //   dx = -dx;
+  // }
 
   if (y + dy < ballRadius) {
     dy = -dy;

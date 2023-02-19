@@ -11,7 +11,7 @@ const ctx = canvas.getContext('2d');
 // === ball specs: ===================================
 // starting positions
 
-const ball = new Ball(canvas.width / 2, canvas.height - 30, 2, -2, 100, 'coral');
+const ball = new Ball(canvas.width / 2, canvas.height - 30, 2, -2, 10, 'coral');
 let x = canvas.width / 2;
 let y = canvas.height - 30;
 
@@ -61,34 +61,42 @@ const brickOffsetLeft = 30;
 
 // brick array:
 const bricks = [];
-for (let c = 0; c < brickColumnCount; c += 1) {
-  bricks[c] = [];
-  for (let r = 0; r < brickRowCount; r += 1) {
-    bricks[c][r] = { x: 0, y: 0, status: 1 };
-  }
-}
 
-function drawBricks() {
+function initializeBricks() {
   for (let c = 0; c < brickColumnCount; c += 1) {
+    bricks[c] = [];
     for (let r = 0; r < brickRowCount; r += 1) {
-      if (bricks[c][r].status === 1) {
-        const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
-        const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
-        bricks[c][r].x = brickX;
-        bricks[c][r].y = brickY;
-        ctx.beginPath();
-        ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        if ((r + c) % 2) {
-          ctx.fillStyle = '#006666';
-        } else {
-          ctx.fillStyle = 'cadetblue';
-        }
-        ctx.fill();
-        ctx.closePath();
+      const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+      const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+      if ((r + c) % 2) {
+        bricks[c][r] = new Brick(brickX, brickY, brickWidth, brickHeight, '#006666');
+      } else {
+        bricks[c][r] = new Brick(brickX, brickY, brickWidth, brickHeight, 'cadetblue');
       }
     }
   }
 }
+
+initializeBricks();
+
+// function drawBricks() {
+//   for (let c = 0; c < brickColumnCount; c += 1) {
+//     for (let r = 0; r < brickRowCount; r += 1) {
+//       if (bricks[c][r].status === 1) {
+
+//         ctx.beginPath();
+//         ctx.rect(brickX, brickY, brickWidth, brickHeight);
+//         if ((r + c) % 2) {
+//           ctx.fillStyle = '#006666';
+//         } else {
+//           ctx.fillStyle = 'cadetblue';
+//         }
+//         ctx.fill();
+//         ctx.closePath();
+//       }
+//     }
+//   }
+// }
 
 // === score: =====================================
 let score = 0;
@@ -132,15 +140,27 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   drawBackground();
+
+  // draw ball
   ball.render(ctx);
+  ball.move();
+
+  // draw bricks
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
+      if (bricks[c][r].status === true) {
+        bricks[c][r].render(ctx);
+      }
+    }
+  }
 
   // draw game elements
   drawScore();
   drawLives();
-  drawBall();
+  // drawBall();
   drawPaddle();
-  drawBricks();
-  collisionDetection();
+  // drawBricks();
+  // collisionDetection();
 
   // move the ball
   x += dx;

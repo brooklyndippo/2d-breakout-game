@@ -15,4 +15,23 @@ export default class Ball {
     ctx.fill();
     ctx.closePath();
   }
+
+  move() {
+    // move the ball
+    this.x += this.dx;
+    this.y += this.dy;
+
+    // movement redirection on collision with horizontal canvas edge
+    if (this.x + this.dx > 480 - this.radius || this.x + this.dx < this.radius) {
+      this.dx = -this.dx;
+    }
+
+    // movement redirection on collision vertical canvas edge
+    if (this.y + this.dy < this.radius) {
+      this.dy = -this.dy;
+    } else if (this.y + this.dy > 320 - this.radius) {
+      // TO DO: add logic for collision with paddle
+      this.dy = -this.dy;
+    }
+  }
 }

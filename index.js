@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import Ball from './game_objects/ball.js';
 import Brick from './game_objects/brick.js';
+import Game from './game.js';
 import GradientBackground from './game_objects/background.js';
 import LifeTracker from './game_objects/lifetracker.js';
 import Paddle from './game_objects/paddle.js';
@@ -12,13 +13,12 @@ const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
 // === ball specs: ===================================
-// starting positions
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-let dx = 2;
-let dy = -2;
+const ballX = canvas.width / 2;
+const ballY = canvas.height - 30;
+const ballDx = 2;
+const ballDy = -2;
 const ballRadius = 10;
-const ball = new Ball(x, y, dx, dy, ballRadius, 'coral');
+const ball = new Ball(ballX, ballY, ballDx, ballDy, ballRadius, 'coral');
 
 // === paddle specs: =================================
 const paddleWidth = 75;
@@ -26,8 +26,6 @@ const paddleHeight = 10;
 const paddleStartX = (canvas.width - paddleWidth) / 2;
 const paddleStartY = canvas.height - paddleHeight;
 const paddle = new Paddle(paddleStartX, paddleStartY, '#006666', paddleWidth, paddleHeight);
-
-let paddleX = paddleStartX;
 
 // paddle commands:
 let rightPressed = false;
@@ -42,8 +40,7 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
-// brick array:
-const bricks = [];
+const bricks = []; // bricks array
 
 function initializeBricks() {
   for (let c = 0; c < brickColumnCount; c += 1) {
@@ -62,14 +59,28 @@ function initializeBricks() {
 
 initializeBricks();
 
-// === score: =====================================
+// === scoreboard specs: ===================================
 const scoreboard = new Scoreboard(8, 20);
 
-// === lives: =====================================
+// === lifetracker specs: ===================================
 const lifetracker = new LifeTracker(canvas.width - 60, 20);
 
 // === stretch challenge: gradient background =====
 const background = new GradientBackground('mediumturquoise', 'powderblue', 'papayawhip', canvas.height, canvas.width);
+
+// === game specs: ===================================
+
+const game = new Game(
+  ball,
+  paddle,
+  bricks,
+  scoreboard,
+  lifetracker,
+  ctx,
+  canvas.width,
+  canvas.height,
+  background,
+);
 
 // === reset game objects ==========================
 function resetGameObjects() {

@@ -1,13 +1,23 @@
+import Ball from './game_objects/ball.js';
+import Brick from "./game_objects/brick.js";
+
+// import Brick from "./game_objects/brick";
+
+// ************** DOM REFERENCES *******************
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
 // === ball specs: ===================================
 // starting positions
+
+const ball = new Ball(canvas.width / 2, canvas.height - 30, 2, -2, 100, 'coral');
 let x = canvas.width / 2;
 let y = canvas.height - 30;
 
 // radius
 const ballRadius = 10;
+const Pi2 = Math.PI * 2;
 
 // movement intervals
 let dx = 2;
@@ -15,7 +25,7 @@ let dy = -2;
 
 function drawBall() {
   ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+  ctx.arc(x, y, ballRadius, 0, Pi2);
   ctx.fillStyle = 'coral';
   ctx.fill();
   ctx.closePath();
@@ -24,7 +34,9 @@ function drawBall() {
 // === paddle specs: =================================
 const paddleHeight = 10;
 const paddleWidth = 75;
-let paddleX = (canvas.width - paddleWidth) / 2;
+const paddleStartX = (canvas.width - paddleWidth) / 2;
+
+let paddleX = paddleStartX;
 
 // paddle commands:
 let rightPressed = false;
@@ -70,7 +82,7 @@ function drawBricks() {
           ctx.fillStyle = '#006666';
         } else {
           ctx.fillStyle = 'cadetblue';
-        };
+        }
         ctx.fill();
         ctx.closePath();
       }
@@ -111,6 +123,8 @@ function drawBackground() {
   ctx.closePath();
 }
 
+// === reset game objects ==========================
+
 // === draw the game: =============================
 
 function draw() {
@@ -118,6 +132,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   drawBackground();
+  ball.render(ctx);
 
   // draw game elements
   drawScore();
@@ -152,7 +167,7 @@ function draw() {
         y = canvas.height - 30;
         dx = 2;
         dy = -2;
-        paddleX = (canvas.width - paddleWidth) / 2;
+        paddleX = paddleStartX;
       }
     }
   }
@@ -179,7 +194,7 @@ function keyDownHandler(e) {
   } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
     leftPressed = true;
   }
-};
+}
 
 // add event listener for mouse movement
 document.addEventListener('mousemove', mouseMoveHandler, false);

@@ -1,16 +1,16 @@
 /* eslint-disable import/extensions */
-import Ball from './game_objects/ball.js';
-import Brick from './game_objects/brick.js';
-import Game from './game.js';
-import GradientBackground from './game_objects/background.js';
-import LifeTracker from './game_objects/lifetracker.js';
-import Paddle from './game_objects/paddle.js';
-import Scoreboard from './game_objects/scoreboard.js';
+import Ball from './game_objects/ball';
+import Brick from './game_objects/brick';
+//import Game from './game';
+import GradientBackground from './game_objects/background';
+import LifeTracker from './game_objects/lifetracker';
+import Paddle from './game_objects/paddle';
+import Scoreboard from './game_objects/scoreboard';
 
 // ************** DOM REFERENCES *******************
 
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = <HTMLCanvasElement> document.getElementById('myCanvas');
+const ctx: any = canvas.getContext('2d');
 
 // === ball specs: ===================================
 const ballX = canvas.width / 2;
@@ -18,14 +18,14 @@ const ballY = canvas.height - 30;
 const ballDx = 2;
 const ballDy = -2;
 const ballRadius = 10;
-const ball = new Ball(ballX, ballY, ballDx, ballDy, ballRadius, 'coral');
+const ball: Ball = new Ball(ballX, ballY, ballDx, ballDy, ballRadius, 'coral');
 
 // === paddle specs: =================================
 const paddleWidth = 75;
 const paddleHeight = 10;
 const paddleStartX = (canvas.width - paddleWidth) / 2;
 const paddleStartY = canvas.height - paddleHeight;
-const paddle = new Paddle(paddleStartX, paddleStartY, '#006666', paddleWidth, paddleHeight);
+const paddle: Paddle = new Paddle(paddleStartX, paddleStartY, '#006666', paddleWidth, paddleHeight);
 
 // paddle commands:
 let rightPressed = false;
@@ -40,7 +40,7 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
-const bricks = []; // bricks array
+const bricks : Brick[][] = []; // bricks array
 
 function initializeBricks() {
   for (let c = 0; c < brickColumnCount; c += 1) {
@@ -60,27 +60,13 @@ function initializeBricks() {
 initializeBricks();
 
 // === scoreboard specs: ===================================
-const scoreboard = new Scoreboard(8, 20);
+const scoreboard: Scoreboard = new Scoreboard(8, 20);
 
 // === lifetracker specs: ===================================
-const lifetracker = new LifeTracker(canvas.width - 60, 20);
+const lifetracker: LifeTracker = new LifeTracker(canvas.width - 60, 20);
 
 // === stretch challenge: gradient background =====
-const background = new GradientBackground('mediumturquoise', 'powderblue', 'papayawhip', canvas.height, canvas.width);
-
-// === game specs: ===================================
-
-const game = new Game(
-  ball,
-  paddle,
-  bricks,
-  scoreboard,
-  lifetracker,
-  ctx,
-  canvas.width,
-  canvas.height,
-  background,
-);
+const background: GradientBackground = new GradientBackground('mediumturquoise', 'powderblue', 'papayawhip', canvas.height, canvas.width);
 
 // === reset game objects ==========================
 function resetGameObjects() {
@@ -180,7 +166,7 @@ document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 
 // set paddle direciton commands to true when pressed
-function keyDownHandler(e) {
+function keyDownHandler(e: KeyboardEvent) {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = true;
   } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
@@ -192,7 +178,7 @@ function keyDownHandler(e) {
 document.addEventListener('mousemove', mouseMoveHandler, false);
 
 // move the paddle relative to the mouse position
-function mouseMoveHandler(e) {
+function mouseMoveHandler(e: MouseEvent) {
   const relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddle.x = relativeX - paddle.width / 2;
@@ -200,7 +186,7 @@ function mouseMoveHandler(e) {
 }
 
 // reset paddle directions to false when key is let off
-function keyUpHandler(e) {
+function keyUpHandler(e: KeyboardEvent) {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = false;
   } else if (e.key === 'Left' || e.key === 'ArrowLeft') {

@@ -1,5 +1,11 @@
 export default class Sprite {
-  constructor(x = 0, y = 0, color = '#f00', width = 100, height = 100) {
+  x: number;
+  y: number;
+  color: string;
+  width: number;
+  height: number;
+
+  constructor(x: number = 0, y: number = 0, color: string= '#f00', width: number = 100, height: number = 100) {
     this.x = x;
     this.y = y;
     this.color = color;
@@ -7,7 +13,7 @@ export default class Sprite {
     this.height = height;
   }
 
-  render(ctx) {
+  render(ctx: any) {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = this.color;

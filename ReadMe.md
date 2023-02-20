@@ -11,14 +11,33 @@ Building the 2D Breakout Game was a great way to learn object oriented programmi
 
 # Getting started - how to run the project
 
-To run the project, clone the file from the main branch.
+To run the project, start by opening up a terminal in VS Code and running these commands:
 
-Run  `npm install` to install all of the necessary dependencies. 
+Clone the repo to your local machine:
 
-Use LiveServer to run the code on your local machine!
+`git clone https://github.com/brooklyndippo/2d-breakout-game.git`
+
+Move into the project directory: 
+
+`cd 2d-breakout-game`
+
+From the project directory, install necessary dependencies and bundle the code with webpack: 
+
+`npm install`
+
+`npm run build`
+
+Now start LiveServer or another extension to run the code on your local machine. At this point you will see the 
+project file structure. To see our game, we need to navigate to where LiveServer can get the `index.html` file. 
+When we bundled our code with webpack, we moved this into the `dist/` folder.
+
+Click on the `dist/` folder in your browser, **the game should appear and now you can play!**
+
+
 
 # Tools and technologies used
 
+- Languages - Javascript, then Typescript to specify input types in every function/class
 - Object Oriented Programming - inheritance, classes, properties, and methods
 - DRY Code - reducing code through class-based programming and repeated refactoring
 - Webpack - bundling code to make it ready for the web 

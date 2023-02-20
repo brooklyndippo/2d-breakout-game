@@ -1,5 +1,11 @@
 export default class GradientBackground {
-  constructor(color1, color2, color3, height, width) {
+  color1: string;
+  color2: string;
+  color3: string;
+  height: number;
+  width: number;
+
+  constructor(color1: string, color2: string, color3: string, height: number, width: number) {
     this.color1 = color1;
     this.color2 = color2;
     this.color3 = color3;
@@ -7,7 +13,7 @@ export default class GradientBackground {
     this.width = width;
   }
 
-  paintBackground(ctx) {
+  paintBackground(ctx: any) {
     const gradient = ctx.createLinearGradient(0, 0, 0, this.height);
     gradient.addColorStop(0, this.color1);
     gradient.addColorStop(0.2, this.color2);

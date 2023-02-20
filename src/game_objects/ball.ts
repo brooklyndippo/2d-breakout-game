@@ -1,5 +1,18 @@
 export default class Ball {
-  constructor(x, y, dx, dy, radius, color) {
+  x: number;
+  y: number;
+  dx: number;
+  dy: number;
+  radius: number;
+  color: string;
+
+  constructor(
+    x: number, 
+    y: number, 
+    dx: number, 
+    dy: number, 
+    radius: number, 
+    color: string) {
     this.x = x;
     this.y = y;
     this.dx = dx;
@@ -8,7 +21,7 @@ export default class Ball {
     this.color = color;
   }
 
-  render(ctx) {
+  render(ctx: any) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = this.color;

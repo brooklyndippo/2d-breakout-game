@@ -1,5 +1,11 @@
 export default class LifeTracker {
-  constructor(x, y, font = 'Arial', color = 'black', lives = 3) {
+  x: number;
+  y: number;
+  font: string;
+  color: string;
+  lives: number;
+
+  constructor(x: number, y: number, font : string = 'Arial', color : string = 'black', lives: number = 3) {
     this.x = x;
     this.y = y;
     this.font = font;
@@ -7,7 +13,7 @@ export default class LifeTracker {
     this.lives = lives;
   }
 
-  render(ctx) {
+  render(ctx: any) {
     ctx.font = `15px ${this.font}`;
     ctx.fillStyle = this.color;
     ctx.fillText(`Lives: ${this.lives}`, this.x, this.y);
